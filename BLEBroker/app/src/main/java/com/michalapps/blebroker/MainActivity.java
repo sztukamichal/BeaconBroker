@@ -3,6 +3,7 @@ package com.michalapps.blebroker;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     List<BeaconDevice> beacons = new ArrayList<>();
     DevicesInRange devicesInRange = new DevicesInRange();
     boolean sendToServer = false;
-
+    private String android_id ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        devicesInRange.setDeviceModel(Build.MODEL);
+        android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        devicesInRange.setDeviceModel(Build.MODEL + " - " + android_id);
 
         recyclerView = new RecyclerView(this);
         recyclerView = (RecyclerView)findViewById(R.id.recycler);

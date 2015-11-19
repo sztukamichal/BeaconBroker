@@ -1,9 +1,8 @@
 package rest;
 
-import org.springframework.core.env.SystemEnvironmentPropertySource;
-import org.springframework.mobile.device.DevicePlatform;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mobile.device.Device;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +12,23 @@ import java.util.List;
 @RestController
 public class DevicesInRangeController {
 
-    private DevicesInRange devicesInRange = new DevicesInRange();
+    private List<DevicesInRange> trackedDevices = new ArrayList<>();
 
     @RequestMapping(value = "/devices", method = RequestMethod.POST)
-    public String postDevicesInRange(@RequestBody DevicesInRange devices) {
-        System.out.println(devices.toString());
-        devicesInRange.setDevicesInRangeList(devices.getDevicesInRangeList());
-        devicesInRange.setDeviceModel(devices.getDeviceModel());
-        return devicesInRange.toString();
+    public String postDevicesInRange(@RequestBody DevicesInRange device) {
+        System.out.println(device.toString());
+        DevicesInRange found = findTrackedDevice(device);
+        if(found != null) {
+            found.setDevicesInRangeList(device.getDevicesInRangeList());
+        } else {
+            trackedDevices.add(new DevicesInRange(device.getDevicesInRangeList(), device.getDeviceModel()));
+        }
+        return trackedDevices.toString();
     }
 
     @RequestMapping(value = "/devices", method = RequestMethod.GET)
-    public DevicesInRange getDevicesInRange() {
-        return devicesInRange;
+    public List<DevicesInRange> getTrackedDevices() {
+        return trackedDevices;
     }
 
     @RequestMapping(value = "device-type", method = RequestMethod.GET)
@@ -42,5 +45,13 @@ public class DevicesInRangeController {
 
     }
 
+    private DevicesInRange findTrackedDevice(DevicesInRange trackedDevice) {
+        for(DevicesInRange device : trackedDevices) {
+            if(device.getDeviceModel().equals(trackedDevice.getDeviceModel())) {
+                return device;
+            }
+        }
+        return null;
+    }
 
 }
