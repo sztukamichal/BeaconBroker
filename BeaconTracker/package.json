@@ -1,0 +1,12 @@
+{
+  "name": "BeaconTracker",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "^1.4.3",
+    "angular-bootstrap": "^0.12.2",
+    "angular-route": "^1.4.3",
+    "bootstrap": "^3.3.5"
+  },
+  "devDependencies": {
+  }
+}

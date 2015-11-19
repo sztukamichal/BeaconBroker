@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BLEBroker</string>
+    <string name="action_settings">Settings</string>
+    <string name="log_message_hint">Start scanning....</string>
+</resources>
