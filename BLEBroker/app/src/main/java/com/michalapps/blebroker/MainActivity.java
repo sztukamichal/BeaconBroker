@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 if(sendToServer == true) {
                     Snackbar.make(view, "Zatrzymanie sledzenia.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     sendToServer = false;
+                    new OnDestroyTask().execute();
                 } else {
                     Snackbar.make(view, "Przesyłam dane na serwer...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     sendToServer = true;
@@ -150,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.v("Koniec", "niszcze");
         scannerCompat.stopScan(scanCallback);
+        new OnDestroyTask().execute();
     }
 
     @Override
@@ -177,8 +180,30 @@ public class MainActivity extends AppCompatActivity {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//                return restTemplate.postForObject("http://78.88.254.200:8081/devices", devicesInRange, String.class);
-                return restTemplate.postForObject("http://192.168.0.9:8080/devices", devicesInRange, String.class);
+                return restTemplate.postForObject("http://78.88.254.200:8081/devices", devicesInRange, String.class);
+//                return restTemplate.postForObject("http://192.168.0.9:8080/devices", devicesInRange, String.class);
+            } catch (Exception e) {
+                Log.e("HTTPRequestTask", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.v("Odpowiedz", result);
+        }
+
+    }
+
+    private class OnDestroyTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                return restTemplate.postForObject("http://78.88.254.200:8081/device-destroy", devicesInRange, String.class);
+//                return restTemplate.postForObject("http://192.168.0.9:8080/device-destroy", devicesInRange, String.class);
             } catch (Exception e) {
                 Log.e("HTTPRequestTask", e.getMessage(), e);
             }

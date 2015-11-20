@@ -16,23 +16,25 @@
     <div ng-show="errorMessage !== ''" class="alert alert-danger col-lg-7 col-md-offset-3" role="alert" style="margin-left: 21%;">{{errorMessage}}</div>
 
     <div ng-hide="errorMessage !==''">
-        <div class="panel panel-primary" ng-repeat="dev in devices">
-            <div class="panel-heading" style="height: 40px">
-                <div class="col-lg-3 col-lg-offset-1">
-                    Adres urządzenia
-                    :
-                </div>
-                <div class="col-lg-4 col-lg-offset-4">
-                    {{dev.address}}
-                </div>
+        <div class="panel panel-primary" ng-repeat="trackedDevice in devices">
+            <div class="panel-heading" ng-click="toggleView($index)">
+                <h4 class="text-center">{{trackedDevice.deviceModel}}</h4>
             </div>
-            <div class="panel-footer" style="height: 40px">
-                <div class="col-lg-3 col-lg-offset-1">
-                    RSSI:
-                </div>
-                <div class="col-lg-4 col-lg-offset-4">
-                    {{dev.rssi}}
-                </div>
+            <div class="panel-body" ng-hide="view[$index]">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Adres</th>
+                            <th>RSSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="beacon in trackedDevice.devicesInRangeList">
+                            <td>{{beacon.address}}</td>
+                            <td>{{beacon.rssi}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
