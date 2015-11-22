@@ -1,5 +1,10 @@
 package com.michalapps.blebroker;
 
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattService;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
 import no.nordicsemi.android.support.v18.scanner.ScanCallback;
@@ -54,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.make(view, "Przesyłam dane na serwer...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     sendToServer = true;
                 }
+//                if(beacons.size() > 0) {
+//                    Log.v("RSSSSI", "poszlo");
+//                    func(beacons.get(0));
+//                }
             }
         });
 
@@ -103,6 +113,58 @@ public class MainActivity extends AppCompatActivity {
             super.onScanFailed(errorCode);
         }
     };
+
+    private void func(BeaconDevice bec) {
+
+//        BluetoothGattCallback gatCallback = new BluetoothGattCallback() {
+//            @Override
+//            public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+////                super.onReadRemoteRssi(gatt, rssi, status);
+//                Log.v("DUPA", "DUPA " + rssi + " status : " + status );
+//            }
+//
+//            @Override
+//            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+//                Log.v("DUPA", "DUPA " + status);
+//            }
+//
+//            @Override
+//            public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+//                UUID uuid = new UUID(961572397662312662L, 2264962290918865592L);
+//                Log.v("Serwis", "UUID : " + uuid);
+//                BluetoothGattService dioda = gatt.getService(uuid);
+////                BluetoothGattCharacteristic chara = new BluetoothGattCharacteristic(uuid,BluetoothGattCharacteristic.FORMAT_SINT16,BluetoothGattCharacteristic.PERMISSION_WRITE);
+////                gatt.readCharacteristic(chara);
+////                dioda.
+//
+//                synchronized (this) {
+//                    try {
+//                        wait(5000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                    Log.v("Serwis", "dioda : " + dioda);
+//
+//            }
+//        };
+//
+//        BluetoothDevice dev = bec.getBluetoothDevice();
+//        BluetoothGatt gatt = dev.connectGatt(this,false,gatCallback);
+//
+//        gatt.connect();
+//        synchronized (this) {
+//            try {
+//                wait(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        gatt.readRemoteRssi();
+//        gatt.discoverServices();
+//        BluetoothGattService dioda = new BluetoothGattService(new UUID(961572410547214550L,2264962290918865592L),BluetoothGattService.SERVICE_TYPE_PRIMARY);
+//        dioda.
+    }
 
     private void update(final List<ScanResult> results) {
         for (final ScanResult result : results) {
@@ -180,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                return restTemplate.postForObject("http://78.88.254.200:8081/devices", devicesInRange, String.class);
-//                return restTemplate.postForObject("http://192.168.0.9:8080/devices", devicesInRange, String.class);
+//                return restTemplate.postForObject("http://78.88.254.200:8081/devices", devicesInRange, String.class);
+                return restTemplate.postForObject("http://192.168.0.9:8080/devices", devicesInRange, String.class);
             } catch (Exception e) {
                 Log.e("HTTPRequestTask", e.getMessage(), e);
             }

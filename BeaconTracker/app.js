@@ -8,8 +8,8 @@ var BeaconTracker = angular.module('BeaconTracker', []);
 
 BeaconTracker.controller('BeaconTrackerCtrl', function($scope, $http, $interval) {
 
-  var url = "http://78.88.254.200:8081/devices";
-  //var url = "http://192.168.0.9:8080/devices";
+  //var url = "http://78.88.254.200:8081/devices";
+  var url = "http://192.168.0.9:8080/devices";
 
   var counter = 0;
 
@@ -41,3 +41,4 @@ BeaconTracker.controller('BeaconTrackerCtrl', function($scope, $http, $interval)
   }
 
 });
+
