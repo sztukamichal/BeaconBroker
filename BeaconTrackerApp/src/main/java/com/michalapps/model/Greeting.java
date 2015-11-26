@@ -1,4 +1,4 @@
-package com.michalapps.rest;
+package com.michalapps.model;
 
 public class Greeting {
 

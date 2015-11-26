@@ -1,4 +1,4 @@
-package com.michalapps.rest;
+package com.michalapps.model;
 
 import java.util.ArrayList;
 import java.util.List;

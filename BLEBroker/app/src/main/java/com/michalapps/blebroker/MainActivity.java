@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothGattService;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     DevicesInRange devicesInRange = new DevicesInRange();
     boolean sendToServer = false;
     private String android_id ;
+    private Handler mHandler;
+    private static final long INACTIVE_PERIOD = 10000;
+    private boolean isHandlerRunning = false;
+    private boolean wasScanSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mHandler = new Handler();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
