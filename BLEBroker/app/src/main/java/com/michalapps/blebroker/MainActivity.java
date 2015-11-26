@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         scannerCompat = BluetoothLeScannerCompat.getScanner();
 
-        ScanSettings settings = new ScanSettings.Builder().setReportDelay(500).build();
+        ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_POWER).setReportDelay(50).build();
         List<ScanFilter> filterList = new ArrayList<>();
         filterList.add(new ScanFilter.Builder().setDeviceName("nRF51822").build());
         scannerCompat.startScan(filterList, settings, scanCallback);
@@ -89,82 +89,30 @@ public class MainActivity extends AppCompatActivity {
         public void onBatchScanResults(List<ScanResult> results) {
             if(results.size() > 0) {
 //                logToDisplay("Found " + results.size() + " beacons in area.");
+                Log.i("czas", "ns : " + results.get(0).getTimestampNanos());
                 update(results);
                 RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(beacons);
                 recyclerView.setAdapter(recyclerViewAdapter);
-                Log.v("Bekony", devicesInRange.toString());
-                Log.v("Bekonyy", "Model: " + devicesInRange.getDeviceModel());
+                Log.i("BekonyOnBatch", devicesInRange.toString());
                 if(sendToServer == true){
                     new HttpRequestTask().execute();
                 }
-
+                Log.i("scan" , "record : " + results.get(0).getScanRecord());
             }
         }
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            super.onScanResult(callbackType, result);
-            Log.v("Bekony", "onScanResult");
+            Log.i("BekonyOnScan", "RSSI : " + result.getRssi());
         }
 
         @Override
         public void onScanFailed(int errorCode) {
-            Log.v("Bekony", "onScanFailed");
-            super.onScanFailed(errorCode);
+            Log.i("BekonyonFail", devicesInRange.toString());
         }
+
+
     };
-
-    private void func(BeaconDevice bec) {
-
-//        BluetoothGattCallback gatCallback = new BluetoothGattCallback() {
-//            @Override
-//            public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-////                super.onReadRemoteRssi(gatt, rssi, status);
-//                Log.v("DUPA", "DUPA " + rssi + " status : " + status );
-//            }
-//
-//            @Override
-//            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-//                Log.v("DUPA", "DUPA " + status);
-//            }
-//
-//            @Override
-//            public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-//                UUID uuid = new UUID(961572397662312662L, 2264962290918865592L);
-//                Log.v("Serwis", "UUID : " + uuid);
-//                BluetoothGattService dioda = gatt.getService(uuid);
-////                BluetoothGattCharacteristic chara = new BluetoothGattCharacteristic(uuid,BluetoothGattCharacteristic.FORMAT_SINT16,BluetoothGattCharacteristic.PERMISSION_WRITE);
-////                gatt.readCharacteristic(chara);
-////                dioda.
-//
-//                synchronized (this) {
-//                    try {
-//                        wait(5000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                    Log.v("Serwis", "dioda : " + dioda);
-//
-//            }
-//        };
-//
-//        BluetoothDevice dev = bec.getBluetoothDevice();
-//        BluetoothGatt gatt = dev.connectGatt(this,false,gatCallback);
-//
-//        gatt.connect();
-//        synchronized (this) {
-//            try {
-//                wait(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        gatt.readRemoteRssi();
-//        gatt.discoverServices();
-//        BluetoothGattService dioda = new BluetoothGattService(new UUID(961572410547214550L,2264962290918865592L),BluetoothGattService.SERVICE_TYPE_PRIMARY);
-//        dioda.
-    }
 
     private void update(final List<ScanResult> results) {
         for (final ScanResult result : results) {
@@ -172,13 +120,15 @@ public class MainActivity extends AppCompatActivity {
             if (device == null) {
                 device = new BeaconDevice(result);
                 beacons.add(device);
-                devicesInRange.getDevicesInRangeList().add(new DeviceInRange(device.getRssi(), device.getAddress()));
+                devicesInRange.getDevicesInRangeList().add(new DeviceInRange(result.getScanRecord().getTxPowerLevel(), device.getRssi(), device.getAddress()));
             } else {
                 device.setAddress(result.getDevice() != null ? result.getDevice().getAddress() : null);
+                device.setScanResult(result != null ? result : null);
                 device.setRssi(result.getRssi());
                 for (DeviceInRange dev : devicesInRange.getDevicesInRangeList()) {
                     if(dev.getAddress().equals(device.getAddress())) {
                         dev.setRssi(device.getRssi());
+                        dev.setTxPower(device.getScanResult().getScanRecord().getTxPowerLevel());
                     }
                 }
             }
@@ -191,12 +141,6 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < beacons.size(); i++) {
             beacons.get(i).visible -= 1;
             if(beacons.get(i).visible == -1) {
-//                for (j = 0; j < devicesInRange.getDevicesInRangeList().size(); j++) {
-//
-////                    if(devicesInRange.getDevicesInRangeList().get(i).getAddress().equals(beacons.get(i).getAddress())) {
-////                        devicesInRange.getDevicesInRangeList().remove(devicesInRange.getDevicesInRangeList().get(i));
-////                    }
-//                }
                 devicesInRange.getDevicesInRangeList().remove(i);
                 beacons.remove(i);
             }
@@ -264,8 +208,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                return restTemplate.postForObject("http://78.88.254.200:8081/device-destroy", devicesInRange, String.class);
-//                return restTemplate.postForObject("http://192.168.0.9:8080/device-destroy", devicesInRange, String.class);
+//                return restTemplate.postForObject("http://78.88.254.200:8081/device-destroy", devicesInRange, String.class);
+                return restTemplate.postForObject("http://192.168.0.9:8080/device-destroy", devicesInRange, String.class);
             } catch (Exception e) {
                 Log.e("HTTPRequestTask", e.getMessage(), e);
             }
@@ -281,5 +225,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
 

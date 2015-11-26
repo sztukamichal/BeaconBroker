@@ -8,13 +8,15 @@ public class DeviceInRange {
 
     private int rssi;
     private String address;
+    private int txPower;
 
     public DeviceInRange() {
     }
 
-    public DeviceInRange(int rssi, String address) {
+    public DeviceInRange(int txPower, int rssi, String address) {
         this.rssi = rssi;
         this.address = address;
+        this.txPower = txPower;
     }
 
     public int getRssi() {
@@ -33,10 +35,19 @@ public class DeviceInRange {
         this.address = address;
     }
 
+    public int getTxPower() {
+        return txPower;
+    }
+
+    public void setTxPower(int txPower) {
+        this.txPower = txPower;
+    }
+
     @Override
     public String toString() {
         return "DeviceInRange{" +
-                "rssi=" + rssi +
+                "tx=" + txPower +
+                ", rssi=" + rssi +
                 ", address='" + address + '\'' +
                 '}';
     }

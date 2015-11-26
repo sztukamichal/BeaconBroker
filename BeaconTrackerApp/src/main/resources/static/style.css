@@ -1,0 +1,50 @@
+body {
+    background: url(http://s13.postimg.org/6ytyxn65z/imageedit_1_5539694555.jpg) no-repeat center center fixed;
+    /*background: url(/icons/background.jpg) no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.opacity {
+    opacity: 0.7;
+}
+
+.panel {
+    background: none;
+    background: rgb(43, 43, 34); /* The Fallback */
+    background: rgba(43, 43, 34, 0.5);
+    border-color: black;
+}
+
+.panel-heading {
+    background:#96968F;
+}
+
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+
+.panel-body {
+    background: none;
+    color: white;
+    font-size: 110%;
+}
+
+.well {
+
+    border-radius:10px;
+    background: rgb(43, 43, 34); /* The Fallback */
+    background: rgba(43, 43, 34, 0.6);
+
+}
+
+.well-white {
+
+    border-radius:10px;
+    background: rgb(245, 245, 240); /* The Fallback */
+    background: rgba(245, 245, 240, 0.6);
+
+}

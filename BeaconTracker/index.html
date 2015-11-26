@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Beacon Tracker</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
 </head>
-<body ng-app="BeaconTracker" ng-controller="BeaconTrackerCtrl" >
+<body ng-app="BeaconTracker" ng-controller="BeaconTrackerCtrl" ng-cloak >
+<md-content>
+    <br>
+    <md-toolbar>
+            <h3 class="text-center">
+                <span>Beacon Tracking Application</span>
+            </h3>
+    </md-toolbar>
+</md-content>
+
+<md-fab-toolbar md-open="false">
+    <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon md-svg-src="icons/menu48.svg"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+            <md-button aria-label="menu" class="md-fab md-primary">
+                <md-icon md-svg-src="icons/menu48.svg"></md-icon>
+            </md-button>
+            <md-button>
+                <md-icon md-svg-src="icons/placeholder4.svg"></md-icon>
+                Lokalizacja
+            </md-button>
+            <md-button>
+                <md-icon md-svg-src="icons/bluetooth22.svg"></md-icon>
+                Urządzenia
+            </md-button>
+            <md-button>
+                <md-icon md-svg-src="icons/setting4.svg"></md-icon>
+                Konfiguracja
+            </md-button>
+        </md-fab-actions>
+    </md-toolbar>
+</md-fab-toolbar>
+
+<div ng-hide="isServerResponding" layout="row" layout-sm="column" layout-align="space-around">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
 
 <div class="container-fluid col-lg-8 col-lg-offset-2">
-    <h2 class="text-center">Urządzenia znajdujące się w zasięgu</h2>
-    <div class="row" style="height: 30px">
-
+    <div ng-show="isServerResponding === true && errorWithConnection === false && errorMessage === ''" class="well">
+        <h3 class="text-center" style="color: white">Połączone urządzenia</h3>
     </div>
-
-    <div ng-show="errorMessage !== ''" class="alert alert-danger col-lg-7 col-md-offset-3" role="alert" style="margin-left: 21%;">{{errorMessage}}</div>
+    <br>
+    <div ng-show="isServerResponding && errorMessage !== ''"
+         class="alert alert-danger col-lg-7 col-lg-offset-3 opacity" role="alert"
+         style="margin-left: 21%;">
+        <h3 class="text-center">{{errorMessage}}</h3>
+    </div>
 
     <div ng-hide="errorMessage !==''">
         <div class="panel panel-primary" ng-repeat="trackedDevice in devices">
@@ -23,16 +67,16 @@
             <div class="panel-body" ng-hide="view[$index]">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Adres</th>
-                            <th>RSSI</th>
-                        </tr>
+                    <tr>
+                        <th>Adres</th>
+                        <th>RSSI</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="beacon in trackedDevice.devicesInRangeList">
-                            <td>{{beacon.address}}</td>
-                            <td>{{beacon.rssi}}</td>
-                        </tr>
+                    <tr ng-repeat="beacon in trackedDevice.devicesInRangeList">
+                        <td>{{beacon.address}}</td>
+                        <td>{{beacon.rssi}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -41,9 +85,12 @@
 </div>
 
 </body>
-<script src="node_modules/angular/angular.js"></script>
-<script src="node_modules/angular-bootstrap/ui-bootstrap.js"></script>
-<script src="node_modules/angular-route/angular-route.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-<script src="app.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+    <script src="node_modules/angular-aria/angular-aria.js"></script>
+    <script src="node_modules/angular-material/angular-material.js"></script>
+    <script src="node_modules/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="node_modules/angular-material-icons/angular-material-icons.js"></script>
+    <script src="app.js"></script>
 </html>

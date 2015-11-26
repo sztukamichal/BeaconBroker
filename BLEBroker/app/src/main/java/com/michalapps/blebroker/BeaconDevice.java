@@ -13,12 +13,14 @@ public class BeaconDevice {
     private int rssi;
     public String address;
     public int visible;
+    public ScanResult scanResult;
 
     public BeaconDevice(ScanResult scanResult) {
         visible = 2;
         bluetoothDevice = scanResult.getDevice();
         rssi = scanResult.getRssi();
         address = bluetoothDevice.getAddress();
+        this.scanResult = scanResult;
     }
 
     @Override
@@ -52,5 +54,13 @@ public class BeaconDevice {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public ScanResult getScanResult() {
+        return scanResult;
+    }
+
+    public void setScanResult(ScanResult scanResult) {
+        this.scanResult = scanResult;
     }
 }
