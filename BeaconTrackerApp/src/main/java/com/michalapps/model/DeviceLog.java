@@ -21,8 +21,10 @@ public class DeviceLog {
 	private int rssi;
     private int txPower;
 
+    public DeviceLog() {
+    	
+    }
    
-
     public DeviceLog(String address, int distance, int rssi,
 			int txPower) {
 		this.address = address;

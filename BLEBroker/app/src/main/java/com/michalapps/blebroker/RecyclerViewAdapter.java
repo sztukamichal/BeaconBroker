@@ -1,6 +1,5 @@
 package com.michalapps.blebroker;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +14,10 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RowViewHolder> {
 
-    private List<BeaconDevice> beaconsDevice = new ArrayList<>();
+    private List<BeaconInRange> beaconsInRange = new ArrayList<>();
 
-    public RecyclerViewAdapter(List<BeaconDevice> beacons) {
-        this.beaconsDevice = beacons;
+    public RecyclerViewAdapter(List<BeaconInRange> beacons) {
+        this.beaconsInRange = beacons;
     }
 
     @Override
@@ -32,13 +31,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RowViewHolder> {
 
     @Override
     public void onBindViewHolder(RowViewHolder holder, int position) {
-        BeaconDevice device = beaconsDevice.get(position);
-        holder.getAddress().setText(device.getAddress());
-        holder.getRssi().setText("RSSI : "+device.getRssi());
+        BeaconInRange beacon = beaconsInRange.get(position);
+        holder.getAddress().setText(beacon.getAddress());
+        holder.getRssi().setText("RSSI : "+ beacon.getRssi());
     }
 
     @Override
     public int getItemCount() {
-        return beaconsDevice.size();
+        return beaconsInRange.size();
     }
 }

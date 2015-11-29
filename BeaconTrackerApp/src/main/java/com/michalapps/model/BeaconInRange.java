@@ -1,19 +1,18 @@
-package com.michalapps.blebroker;
-
+package com.michalapps.model;
 
 /**
  * Created by User on 2015-11-18.
  */
-public class DeviceInRange {
+public class BeaconInRange {
 
     private int rssi;
     private String address;
     private int txPower;
 
-    public DeviceInRange() {
+    public BeaconInRange() {
     }
 
-    public DeviceInRange(int txPower, int rssi, String address) {
+    public BeaconInRange(int txPower, int rssi, String address) {
         this.rssi = rssi;
         this.address = address;
         this.txPower = txPower;
@@ -52,5 +51,6 @@ public class DeviceInRange {
                 '}';
     }
 }
+
 
 

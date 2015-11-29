@@ -33,6 +33,12 @@ body {
     font-size: 110%;
 }
 
+.panel-footer {
+    background: none;
+    color: white;
+    font-size: 110%;
+}
+
 .well {
 
     border-radius:10px;
@@ -48,3 +54,35 @@ body {
     background: rgba(245, 245, 240, 0.6);
 
 }
+
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 155px; /* .push must be the same height as .footer */
+}
+
+.transparent-input {
+    background-color:rgba(0, 0, 0, 0);
+    color:white;
+    border: none;
+    outline:none;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+}
+/*
+
+Sticky Footer by Ryan Fait
+http://ryanfait.com/
+
+*/
