@@ -3,12 +3,10 @@
  */
 var BeaconTracker = angular.module('BeaconTracker');
 
-BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDialog) {
+BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDialog, $timeout) {
 
   //var url = "http://78.88.254.200:8081/devices";
   var url = "/devices";
-  var notTrackedInitialized = false;
-  var time = 1000;
   $scope.devices = [];
   $scope.view =[];
   $scope.isServerResponding = false;
@@ -16,7 +14,7 @@ BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDi
   $scope.distance = 0.0;
   $scope.beacon =  null;
   $scope.trackedDevices = [];
-  $scope.notTrackedDevices = [];
+  $scope.devicesConfigurations = [];
   $scope.selectedIndex = 0;
   $scope.beacons =   [
     { id: 1, name: 'EC:E7:42:7C:AB:2B'},
@@ -27,7 +25,7 @@ BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDi
   //$scope.errorWithConnection = false;
   //$scope.errorMessage ='';
   //$scope.devices = [{"devicesInRangeList":[{"rssi":-78,"address":"EC:E7:42:7C:AB:2B"}],"deviceId":"GT-I9515 - 1a88bbcf523c933c"}];
-  //$scope.notTrackedDevices = [
+  //$scope.devicesConfigurations = [
   //  {
   //    "deviceId":"GT-I9515 - 1a88bbcf523c933c",
   //    "distancesToBeacons": {}
@@ -54,41 +52,43 @@ BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDi
     if($scope.errorWithConnection !== true && $scope.selectedIndex === 0) {
       updateDevicesInRange()
     }
-  },time);
+  },1000);
 
-  function initializeNotTrackedDevice(devices) {
+  function addDevicesConfiguration(devices) {
     devices.forEach(function (element) {
-      $scope.notTrackedDevices.push({"deviceId": element.deviceId, "distancesToBeacons": {}});
+      $scope.devicesConfigurations.push({"deviceId": element.deviceId, "distancesToBeacons": {}});
     })
   }
 
   $scope.toggleSelectedTab = function(index) {
     $scope.selectedIndex = index;
-    if(index === 1) {
-      time = 1000000;
-      if(notTrackedInitialized === false) {
-        notTrackedInitialized = true;
-        var notTrackedDevices = [];
-        var that = this;
-        var devices = $scope.trackedDevices.length ===0 ? $scope.devices : $scope.devices.filter(function (element, index) {
-          return $scope.trackedDevices.findIndex(function (trackedDevice) {
-              if(trackedDevice.deviceId === element.deviceId) {
-                return true;
-              }
-            }) > -1 ;
-        });
-        initializeNotTrackedDevice(devices);
-      }
-    } else {
-      time = 1000;
-    }
   };
+
+  function updateConfigurations(newDevices) {
+    addDevicesConfiguration(newDevices);
+    $scope.trackedDevices.forEach(function (configuration) {
+      var foundIndex = newDevices.findIndex(function (element) {
+        return element.deviceId === configuration.deviceId;
+      });
+      if (foundIndex > -1) {
+        $scope.devicesConfigurations[foundIndex].distancesToBeacons = configuration.distancesToBeacons;
+      }
+    });
+  }
 
   function updateDevicesInRange() {
     $http.get("/getDevicesInRange")
       .success(function (data) {
         $scope.errorWithConnection = false;
         $scope.isServerResponding = true;
+        if($scope.devices < data.length) {
+          var newDevices = data.filter(function (element) {
+            return $scope.devices.findIndex(function (el) {
+                return element.deviceId == el.deviceId;
+              }) < 0;
+          });
+          updateConfigurations(newDevices);
+        }
         $scope.devices = data;
         if($scope.devices.length === 0) {
           $scope.errorMessage = "Nie znaleziono żadnych urządzeń w pobliżu"
@@ -97,73 +97,116 @@ BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDi
         }
       })
       .error(function (data) {
-        showAlert();
+        showAlert("Brak połączenia z serwerem");
         $scope.isServerResponding = true;
         $scope.errorWithConnection = true;
         $scope.errorMessage = "Błąd podczas komunikacji z serwerem...";
       })
   }
-  updateDevicesInRange();
-  var getTrackedDevice = function () {
+
+  function getTrackedDevice() {
     $http.get('/getTrackedDevices')
       .success(function (data) {
         $scope.errorWithConnection = false;
         $scope.isServerResponding = true;
         $scope.trackedDevices = data;
+        console.log($scope.devices);
+        console.log($scope.trackedDevices);
+        console.log($scope.devicesConfigurations);
       })
-      .error(function (data) {
-        showAlert();
+      .error(function () {
+        showAlert("Brak połączenia z serwerem");
         $scope.isServerResponding = true;
         $scope.errorWithConnection = true;
-        console.log(data);
+        $scope.trackedDevices = [];
         $scope.errorMessage = "Błąd podczas komunikacji z serwerem...";
       })
-  };
-
-  getTrackedDevice();
+  }
+  getTrackedDevice()
 
   $scope.toggleView = function (index) {
     $scope.view[index] = !$scope.view[index];
   };
-  $scope.getTrackedDevice = function (deviceId) {
+
+  $scope.startTrackDevice = function (trackDevice) {
+    $http({
+      method: 'POST',
+      url: '/trackDevice',
+      data: trackDevice,
+      headers: {'Content-Type': 'application/json'}
+    })
+      .success(function (data) {
+        $scope.trackedDevices.push(trackDevice);
+        console.log("success");
+      })
+      .error(function () {
+        showAlert("Brak połączenia z serwerem");
+      })
+  };
+  $scope.stopTrackDevice = function (trackDevice, index) {
+    $http({
+      method: 'POST',
+      url: '/stopTrackDevice',
+      data: trackDevice,
+      headers: {'Content-Type': 'application/json'}
+    })
+      .success(function (data) {
+        $scope.trackedDevices.splice(index,1);
+        console.log("success");
+      })
+      .error(function () {
+        showAlert("Brak połączenia z serwerem");
+      })
+  }
+
+  $scope.removeProperty = function (index, key) {
+    delete $scope.devicesConfigurations[index].distancesToBeacons[key];
+  };
+
+  $scope.changeProperty = function (index, key, value) {
+    if(key != undefined) {
+      $scope.devicesConfigurations[index].distancesToBeacons[key] = value;
+    }
+  };
+
+  $scope.getAvailableBeacons = function (device, index) {
+    //var availableBeacons = [];
+    //var counter = 0;
+    //device.beaconsInRangeList.forEach(function (element) {
+    //  if( !$scope.devicesConfigurations[index].distancesToBeacons.hasOwnProperty(element.address)) {
+    //    availableBeacons.push(
+    //      { id: counter, name: element.address});
+    //    counter += 1;
+    //  }
+    //});
+    //return availableBeacons;
+    return $scope.beacons.filter(function (element) {
+      return !$scope.devicesConfigurations[index].distancesToBeacons.hasOwnProperty(element.name);
+    })
+  };
+
+  $scope.getDeviceConfigurationIndex = function (deviceId) {
+    return $scope.devicesConfigurations.findIndex(function (element) {
+      if(element.deviceId == deviceId) {
+        return true;
+      }
+    });
+  };
+
+  $scope.getTrackedDeviceIndex = function (deviceId) {
     return $scope.trackedDevices.findIndex(function (element) {
       if(element.deviceId == deviceId) {
         return true;
       }
     });
   };
-  $scope.getNotTrackedDevice = function (deviceId) {
-    return $scope.notTrackedDevices.findIndex(function (element) {
-      if(element.deviceId == deviceId) {
-        return true;
-      }
-    });
-  };
-  $scope.removeProperty = function (index, key) {
-    delete $scope.trackedDevices[index].distancesToBeacons[key];
-  };
-  $scope.changeProperty = function (index, key, value) {
-    console.log(key);
-    if(key != undefined) {
-      $scope.trackedDevices[index].distancesToBeacons[key] = value;
-    }
-  };
-  $scope.getBeacons = function (index) {
-    return $scope.beacons.filter(function (element) {
-      return !$scope.trackedDevices[index].distancesToBeacons.hasOwnProperty(element.name);
-    })
-  };
 
-  $scope.getDeviceConfiguration = function (deviceId) {
-      return getTrackedDevice(deviceId) === undefined ? $scope.getNotTrackedDevice(deviceId) : getTrackedDevice(deviceId);
-  };
-
-  var showAlert = function() {
+  var showAlert = function(text) {
     $mdDialog.show(
       $mdDialog.alert()
         .parent(angular.element(document.querySelector('#popupContainer')))
         .clickOutsideToClose(true)
-        .title('Brak połączenia z serwerem')
+        .title(text)
         .ok('OK')
         .targetEvent(null)
     );

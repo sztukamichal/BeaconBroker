@@ -21,88 +21,88 @@
             <div class="panel-body" ng-hide="view[$index]">
                 <md-tabs md-selected="selectedIndex">
                     <md-tab label="Na żywo" ng-click="toggleSelectedTab(0)">
-                    	<div ng-if="selectedIndex === 0">
-	                        <table class="table">
-	                            <thead>
-	                            <tr>
-	                                <th>Address</th>
-	                                <th>Tx Power</th>
-	                                <th>RSSI</th>
-	                            </tr>
-	                            </thead>
-	                            <tbody>
-	                            <tr ng-repeat="beacon in device.beaconsInRangeList">
-	                                <td>{{beacon.address}}</td>
-	                                <td>{{beacon.txPower}}</td>
-	                                <td>{{beacon.rssi}}</td>
-	                            </tr>
-	                            </tbody>
-	                        </table>
+                        <div ng-if="selectedIndex === 0">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Address</th>
+                                    <th>Tx Power</th>
+                                    <th>RSSI</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="beacon in device.beaconsInRangeList">
+                                    <td>{{beacon.address}}</td>
+                                    <td>{{beacon.txPower}}</td>
+                                    <td>{{beacon.rssi}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </md-tab>
                     <md-tab label="Konfiguracja" ng-click="toggleSelectedTab(1)">
                         <div ng-if="selectedIndex === 1">
-	                        <div class="text-center">
-	                            <h5>
-	                                Wypisz odległości od beaconów:
-	                            </h5>
-	                        </div>
-	                        <div class="col-lg-offset-2 col-lg-8">
-	                            <table>
-	                                <tr ng-repeat='(key, prop) in trackedDevices[getTrackedDevice(device.deviceId)].distancesToBeacons track by key'>
-	                                    <td>
-	                                        {{key}}
-	                                    </td>
-	                                    <td></td>
-	                                    <td>
-	                                        <input type="number" ng-model="trackedDevices[getTrackedDevice(device.deviceId)].distancesToBeacons[key]" step="0.01" placeholder="warto��" class="form-control">
-	                                    </td>
-	                                    <td>
-	                                        <a href ng-click="removeProperty(getTrackedDevice(device.deviceId),key)" class="glyphicon glyphicon-remove"></a>
-	                                    </td>
-	                                </tr>
-	                                <tr>
-	                                    <td>
-	                                        <md-select placeholder="Wybierz beacon" ng-model="beacon" md-on-open="loadBeacons()" style="min-width: 200px;">
-	                                            <md-option ng-value="beacon" ng-repeat="beacon in getBeacons(getTrackedDevice(device.deviceId))">{{beacon.name}}</md-option>
-	                                        </md-select>
-	                                    </td>
-	                                    <td></td>
-	                                    <td>
-	                                        <input type="number" ng-model="distance" step="0.01" placeholder="warto��" class="form-control">
-	                                    </td>
-	                                </tr>
-	                            </table>
-	                            <div class="text-center">
-	                                <md-button ng-click="changeProperty(getTrackedDevice(device.deviceId),beacon.name,distance)" class="md-primary btn-block md-raised">
-	                                    <md-icon md-svg-src="icons/add121.svg"></md-icon>
-	                                    Dodaj odległość
-	                                </md-button>
-	                            </div>
-	                            <br>
-	                            <div ng-show="getTrackedDevice(device.deviceId) > -1" class="text-center">
-	                                <md-button ng-click="removeTrackedDevice(getTrackedDevice(device.deviceId))" class="md-warn md-raised btn-block">
-	                                    <md-icon md-svg-src="icons/cancel63.svg"></md-icon>
-	                                    Przestań śledzić
-	                                </md-button>
-	                            </div>
-	                            <div ng-hide="getTrackedDevice(device.deviceId) > -1" class="text-center">
-	                                <md-button ng-click="startTrackDevice(getTrackedDevice(device.deviceId))" class="md-raised btn-block">
-	                                    <md-icon md-svg-src="icons/checkmark18.svg"></md-icon>
-	                                    Zacznij śledzić
-	                                </md-button>
-	                            </div>
-	                        </div>
-	                       </div>
+                            <div class="text-center">
+                                <h5>
+                                    Wypisz odległości od beaconów:
+                                </h5>
+                            </div>
+                            <div class="col-lg-offset-2 col-lg-8">
+                                <table>
+                                    <tr ng-repeat="(key, prop) in devicesConfigurations[getDeviceConfigurationIndex(device.deviceId)].distancesToBeacons track by key">
+                                        <td>
+                                            {{key}}
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <input type="number" ng-model="devicesConfigurations[getDeviceConfigurationIndex(device.deviceId)].distancesToBeacons[key]" step="0.01" placeholder="odległość" class="form-control">
+                                        </td>
+                                        <td>
+                                            <a href ng-click="removeProperty(getDeviceConfigurationIndex(device.deviceId),key)" class="glyphicon glyphicon-remove"></a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="getAvailableBeacons(device,getDeviceConfigurationIndex(device.deviceId)).length > 0">
+                                        <td>
+                                            <md-select placeholder="Wybierz beacon" ng-model="beacon" style="min-width: 200px;">
+                                                <md-option ng-value="beacon" ng-repeat="beacon in getAvailableBeacons(device,getDeviceConfigurationIndex(device.deviceId))">{{beacon.name}}</md-option>
+                                            </md-select>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <input type="number" ng-model="distance" step="0.01" placeholder="odległość" class="form-control">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="text-center">
+                                    <md-button ng-click="changeProperty(getDeviceConfigurationIndex(device.deviceId),beacon.name,distance)" class="md-primary btn-block md-raised">
+                                        <md-icon md-svg-src="icons/add121.svg"></md-icon>
+                                        Dodaj odległość
+                                    </md-button>
+                                </div>
+                                <br>
+                                <div ng-show="getTrackedDeviceIndex(device.deviceId) > -1" class="text-center">
+                                    <md-button ng-click="stopTrackDevice(trackedDevices[getTrackedDeviceIndex(device.deviceId)], getTrackedDeviceIndex(device.deviceId))" class="md-warn md-raised btn-block">
+                                        <md-icon md-svg-src="icons/cancel63.svg"></md-icon>
+                                        Przestań śledzić
+                                    </md-button>
+                                </div>
+                                <div ng-hide="getTrackedDeviceIndex(device.deviceId) > -1" class="text-center">
+                                    <md-button ng-click="startTrackDevice(devicesConfigurations[getDeviceConfigurationIndex(device.deviceId)])" class="md-raised btn-block">
+                                        <md-icon md-svg-src="icons/checkmark18.svg"></md-icon>
+                                        Zacznij śledzić
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
                     </md-tab>
                 </md-tabs>
             </div>
             <div class="panel-footer">
-                <div ng-show="getTrackedDevice(device.deviceId) > -1" class="text-center">
+                <div ng-show="getTrackedDeviceIndex(device.deviceId) > -1" class="text-center">
                     Śledzony
                     <md-icon md-svg-src="icons/checkmark18.svg"></md-icon>
                 </div>
-                <div ng-hide="getTrackedDevice(device.deviceId) > -1" class="text-center">
+                <div ng-hide="getTrackedDeviceIndex(device.deviceId) > -1" class="text-center">
                     Nieśledzony
                     <md-icon md-svg-src="icons/cancel63.svg"></md-icon>
                 </div>

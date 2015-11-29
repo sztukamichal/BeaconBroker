@@ -62,8 +62,8 @@ public class Measurment {
 		return deviceId;
 	}
 
-	public void setDeviceId(String phoneId) {
-		this.deviceId = phoneId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public String getBeaconId() {
