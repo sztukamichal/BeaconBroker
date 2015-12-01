@@ -8,16 +8,22 @@ import java.util.List;
  */
 public class Device {
 
-    private List<BeaconInRange> beaconsInRangeList ;
+    private List<BeaconInRange> beaconsInRangeList;
     private String deviceId;
+    private BeaconInRange lastUpdated;
+
     public Device() {
         beaconsInRangeList = new ArrayList<>();
         deviceId = "unknown";
+        lastUpdated = new BeaconInRange();
     }
 
-    public Device(List<BeaconInRange> devicesInRangeList, String model) {
-        deviceId = model;
-        this.beaconsInRangeList = devicesInRangeList;
+    public BeaconInRange getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(BeaconInRange lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public String getDeviceId() {
@@ -32,8 +38,9 @@ public class Device {
         return beaconsInRangeList;
     }
 
-    public void setBeaconsInRangeList(List<BeaconInRange> devicesInRangeList) {
-        this.beaconsInRangeList = devicesInRangeList;
+
+    public void setBeaconsInRangeList(List<BeaconInRange> beaconsInRangeList) {
+        this.beaconsInRangeList = beaconsInRangeList;
     }
 
     @Override
@@ -53,6 +60,5 @@ public class Device {
         }
     }
 }
-
 
 

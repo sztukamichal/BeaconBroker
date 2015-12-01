@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBeaconsInRange(ScanResult result) {
         BeaconInRange resultBeacon = new BeaconInRange(result.getScanRecord().getTxPowerLevel(),result.getRssi(), result.getDevice().getAddress());
+        thisDevice.setLastUpdated(resultBeacon);
         if(thisDevice.getBeaconsInRangeList().size() > 0) {
             BeaconInRange updateBeacon = findBeaconInRange(resultBeacon);
             if(updateBeacon == null) {

@@ -73,13 +73,10 @@ public class DevicesInRangeController {
         TrackedDevice dev = findTrackedDevice(device.getDeviceId());
         if(dev != null) {
         	Measurement measurment;
-        	List<BeaconInRange> beacons = device.getBeaconsInRangeList();
-        	float distance;
-        	for(BeaconInRange beacon : beacons) {
-        		distance = dev.getDistanceToBeacon(beacon.getAddress());
-        		measurment = new Measurement(device.getDeviceId(), beacon.getAddress(), beacon.getRssi(), beacon.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance);
-        		measurmentDao.save(measurment);
-        	}
+        	BeaconInRange lastUpdated = device.getLastUpdated();
+        	float distance = dev.getDistanceToBeacon(lastUpdated.getAddress());
+    		measurment = new Measurement(device.getDeviceId(), lastUpdated.getAddress(), lastUpdated.getRssi(), lastUpdated.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance);
+    		measurmentDao.save(measurment);	
         }
         
 		return device.toString();

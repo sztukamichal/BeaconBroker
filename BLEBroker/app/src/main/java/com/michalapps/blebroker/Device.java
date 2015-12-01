@@ -10,9 +10,20 @@ public class Device {
 
     private List<BeaconInRange> beaconsInRangeList;
     private String deviceId;
+    private BeaconInRange lastUpdated;
+
     public Device() {
         beaconsInRangeList = new ArrayList<>();
         deviceId = "unknown";
+        lastUpdated = new BeaconInRange();
+    }
+
+    public BeaconInRange getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(BeaconInRange lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public String getDeviceId() {
@@ -26,6 +37,7 @@ public class Device {
     public List<BeaconInRange> getBeaconsInRangeList() {
         return beaconsInRangeList;
     }
+
 
     public void setBeaconsInRangeList(List<BeaconInRange> beaconsInRangeList) {
         this.beaconsInRangeList = beaconsInRangeList;
