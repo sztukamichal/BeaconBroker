@@ -1,7 +1,6 @@
 /**
  * Created by User on 2015-11-27.
  */
-var BeaconTracker = angular.module('BeaconTracker');
 
 BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDialog, $timeout) {
 

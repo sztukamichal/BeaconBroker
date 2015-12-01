@@ -7,7 +7,8 @@
 var BeaconTracker = angular.module('BeaconTracker', [
   'ngMaterial',
   'ngMdIcons',
-  'ngRoute'
+  'ngRoute',
+  'ngTable'
 ]);
 
 BeaconTracker.config(['$routeProvider',
@@ -16,6 +17,10 @@ BeaconTracker.config(['$routeProvider',
     $routeProvider.when('/devices', {
       templateUrl : 'html/devices.html',
       controller: 'devicesCtrl'
+    }).
+    when('/measurements', {
+      templateUrl : 'html/measurements.html',
+      controller: 'measurementsCtrl as vm'
     }).
     otherwise({
       redirectTo: '/home'

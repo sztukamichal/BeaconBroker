@@ -1,0 +1,46 @@
+
+<md-menu>
+    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+        <md-icon md-menu-origin md-svg-src="icons/button8.svg"></md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item>
+            <md-button ng-click='csv.generate($event, "pomiary.csv")'>
+                <md-icon md-svg-src="icons/arrow73.svg" md-menu-align-target></md-icon>
+                Eksportuj do csv
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="tableParams.sorting({})">
+                <md-icon md-svg-src="icons/alphabetical2.svg"></md-icon>
+                Wyczyść sortowanie
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="tableParams.filter({})">
+                <md-icon md-svg-src="icons/funnel4.svg"></md-icon>
+                Wyczyść filtrowanie
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+<md-button class="md-primary md-raised " ng-click='csv.generate($event, "pomiary.csv")'>Eksportuj do csv</md-button>
+<md-button ng-click="tableParams.sorting({})" class="md-primary md-raised">Wyczyść sortowanie</md-button>
+
+<div class="well" style="color:white">
+    <md-progress-linear ng-hide="done" md-mode="indeterminate"></md-progress-linear>
+    <table ng-table="tableParams" class="table table-bordered ng-table-responsive " show-filter="true" export-csv="csv">
+        <tr ng-repeat="measurement in $data">
+            <td class="text-center" title="'ID beacon\'a'" sortable="'beaconId'" filter="{ 'beaconId': 'text' }">{{measurement.beaconId}}</td>
+            <td class="text-center" title="'Moc rozgłaszania'" sortable="'txPower'" filter="{ 'txPower': 'select' }" filter-data="getDatasource">{{measurement.txPower}}</td>
+            <td class="text-center" title="'RSSI'" sortable="'rssi'"  filter="{ 'rssi': 'text' }">{{measurement.rssi}}</td>
+            <td class="text-center" title="'Dystans'" sortable="'distance'"  filter="{ 'distance': 'text' }">{{measurement.distance}}</td>
+            <td class="text-center" title="'Czas'" sortable="'time'"  filter="{ 'text': 'text' }">{{getDate(measurement.time)}}</td>
+            <td class="text-center" title="'ID urządzenia'" sortable="'deviceId'"  filter="{ 'deviceId': 'text' }">{{measurement.deviceId}}</td>
+        </tr>
+    </table>
+</div>
+<canvas id="line" class="chart chart-line" chart-data="data"
+        chart-labels="labels" chart-legend="true" chart-series="series">
+</canvas>
+<md-button ng-click="showAlert(ddd.length)" class="md-primary md-raised">Sprawdz</button>

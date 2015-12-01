@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "measurments")
-public class Measurment {
+public class Measurement {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,13 +30,13 @@ public class Measurment {
     private float distance;
     
     
-    public Measurment() {
+    public Measurement() {
     	
     }
     
     
 
-	public Measurment(String deviceId, String beaconId, int rssi, int txPower,
+	public Measurement(String deviceId, String beaconId, int rssi, int txPower,
 			Timestamp time, float distance) {
 		this.deviceId = deviceId;
 		this.beaconId = beaconId;

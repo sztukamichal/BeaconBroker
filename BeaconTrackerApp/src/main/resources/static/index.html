@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
     <link rel="stylesheet" href="libraries/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="libraries/ng-table/dist/ng-table.css"/>
+    <link rel="stylesheet" href="libraries/angular-chart.js/dist/angular-chart.css">
 </head>
 <body ng-app="BeaconTracker" ng-cloak >
 <md-content>
@@ -40,15 +42,14 @@
                 <md-icon md-svg-src="icons/setting4.svg"></md-icon>
                 Konfiguracja
             </md-button>
-            <md-button ng-href="#measurments">
+            <md-button ng-href="#measurements">
                 <md-icon md-svg-src="icons/speedometer26.svg"></md-icon>
                 Pomiary
             </md-button>
         </md-fab-actions>
     </md-toolbar>
 </md-fab-toolbar>
-
-<div ng-view="" class="container-fluid col-lg-8 col-lg-offset-2">
+<div ng-view="" class="container-fluid col-lg-10 col-lg-offset-1">
 
 </div>
 
@@ -60,6 +61,12 @@
 <script src="libraries/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="libraries/angular-route/angular-route.js"></script>
 <script src="libraries/angular-material-icons/angular-material-icons.js"></script>
+<script src="libraries/ng-table/dist/ng-table.js"></script>
+<script src="libraries/angular-chart.js/node_modules/chart.js/Chart.js"></script>
+<script src="libraries/angular-chart.js/dist/angular-chart.js"></script>
+<script src="js/script.js"></script>
+<script src="js/ng-table-export.src.js"></script>
 <script src="app.js"></script>
 <script src="js/devicesController.js"></script>
+<script src="js/measurementsCtrl.js"></script>
 </html>

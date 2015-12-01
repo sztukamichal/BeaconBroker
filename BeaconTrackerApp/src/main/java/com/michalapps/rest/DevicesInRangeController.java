@@ -8,7 +8,7 @@ import com.michalapps.model.DeviceLogDao;
 import com.michalapps.model.Device;
 import com.michalapps.model.MeasurmentDao;
 import com.michalapps.model.TrackedDevice;
-import com.michalapps.model.Measurment;
+import com.michalapps.model.Measurement;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -72,12 +72,12 @@ public class DevicesInRangeController {
         }
         TrackedDevice dev = findTrackedDevice(device.getDeviceId());
         if(dev != null) {
-        	Measurment measurment;
+        	Measurement measurment;
         	List<BeaconInRange> beacons = device.getBeaconsInRangeList();
         	float distance;
         	for(BeaconInRange beacon : beacons) {
         		distance = dev.getDistanceToBeacon(beacon.getAddress());
-        		measurment = new Measurment(device.getDeviceId(), beacon.getAddress(), beacon.getRssi(), beacon.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance);
+        		measurment = new Measurement(device.getDeviceId(), beacon.getAddress(), beacon.getRssi(), beacon.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance);
         		measurmentDao.save(measurment);
         	}
         }
@@ -117,7 +117,7 @@ public class DevicesInRangeController {
     		return device.toString();
         }
     }
-
+    
     private Device findDeviceInRange(String deviceId) {
         for(Device device : devicesInRange) {
             if(device.getDeviceId().equals(deviceId)) {

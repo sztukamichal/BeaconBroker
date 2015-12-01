@@ -18,7 +18,10 @@ BeaconTracker.controller('devicesCtrl', function($scope, $http, $interval, $mdDi
   $scope.selectedIndex = 0;
   $scope.beacons =   [
     { id: 1, name: 'EC:E7:42:7C:AB:2B'},
-    { id: 2, name: 'F9:39:03:69:9B:B4'}
+    { id: 2, name: 'F9:39:03:69:9B:B4'},
+    { id: 3, name: 'F4:1C:50:21:23:FD'},
+    { id: 4, name: 'D4:E0:02:F8:70:3C'},
+    { id: 5, name: 'C8:F1:74:81:5E:D3'}
   ];
   //fake
   //$scope.isServerResponding = true;

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 //                return restTemplate.postForObject("http://78.88.254.200:8081/devices", thisDevice, String.class);
-                return restTemplate.postForObject("http://192.168.0.9:8080/postDeviceInRange", thisDevice, String.class);
+                return restTemplate.postForObject("http://192.168.43.64:8080/postDeviceInRange", thisDevice, String.class);
             } catch (Exception e) {
                 Log.e("HTTPRequestTask", e.getMessage(), e);
             }
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 //                return restTemplate.postForObject("http://78.88.254.200:8081/device-destroy", thisDevice, String.class);
-                return restTemplate.postForObject("http://192.168.0.9:8080/deviceOutOfRange", thisDevice, String.class);
+                return restTemplate.postForObject("http://192.168.43.64:8080/deviceOutOfRange", thisDevice, String.class);
             } catch (Exception e) {
                 Log.e("HTTPRequestTask", e.getMessage(), e);
             }
