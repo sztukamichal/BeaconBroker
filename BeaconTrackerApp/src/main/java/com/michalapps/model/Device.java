@@ -55,7 +55,8 @@ public class Device {
                 text += i + ". ";
                 text += dev.toString();
                 text += "\n";
-            }
+            } 
+            text += "lastUpdated : " + lastUpdated.toString();
             return text;
         }
     }

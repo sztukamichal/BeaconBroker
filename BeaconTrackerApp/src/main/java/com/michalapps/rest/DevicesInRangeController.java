@@ -67,6 +67,7 @@ public class DevicesInRangeController {
         Device found = findDeviceInRange(device.getDeviceId());
         if(found != null) {
             found.setBeaconsInRangeList(device.getBeaconsInRangeList());
+            found.setLastUpdated(device.getLastUpdated());
         } else {
             devicesInRange.add(device);
         }
