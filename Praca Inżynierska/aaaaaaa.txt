@@ -1,0 +1,59 @@
+DEFAULT	Widaæ rozg³aszanie co 5 sek
+
+11-26 00:28:18.607 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -47
+11-26 00:28:23.862 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -80
+11-26 00:28:28.596 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -61
+11-26 00:28:33.641 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -53
+11-26 00:28:38.606 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -80
+11-26 00:28:43.741 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -66
+11-26 00:28:48.606 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -53
+11-26 00:28:53.751 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -49
+11-26 00:28:58.596 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -63
+11-26 00:29:03.741 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -59
+11-26 00:29:09.006 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -49
+11-26 00:29:13.670 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -70
+11-26 00:29:18.595 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -55
+11-26 00:29:24.821 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -48
+11-26 00:29:28.595 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -70
+11-26 00:29:33.640 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -61
+11-26 00:29:38.705 27873-27873/com.michalapps.blebroker I/BekonyOnScan: RSSI : -50
+
+SET ONE_ADVERTISMENT
+
+11-26 00:48:53.952 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}
+11-26 00:48:58.566 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:48:58.566 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-47, address='EC:E7:42:7C:AB:2B'}
+11-26 00:48:58.566 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}
+11-26 00:48:59.127 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:48:59.127 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-47, address='EC:E7:42:7C:AB:2B'}
+11-26 00:48:59.127 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-61, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:04.182 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:04.182 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-61, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:04.182 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-61, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:04.282 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:04.282 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-61, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:04.282 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-50, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:08.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:08.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-52, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:08.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-50, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:08.676 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:08.676 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-52, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:08.676 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:13.651 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:13.651 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-47, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:13.651 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:13.961 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:13.961 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-47, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:13.961 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-66, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:18.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:18.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-76, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:18.576 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-66, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:18.686 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:18.686 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-76, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:18.686 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-52, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:23.641 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:23.641 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-76, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:23.641 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}
+11-26 00:49:23.781 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2
+11-26 00:49:23.781 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 1. DeviceInRange{rssi=-52, address='EC:E7:42:7C:AB:2B'}
+11-26 00:49:23.781 31751-31751/com.michalapps.blebroker I/BekonyOnBatch: 2. DeviceInRange{rssi=-42, address='C8:F1:74:81:5E:D3'}

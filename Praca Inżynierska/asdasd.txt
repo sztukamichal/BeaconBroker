@@ -1,0 +1,5 @@
+Identyfikacja urz¹dzenia po stronie serwera
+Baza danych albo plik ze wspó³rzêdnymi beaconów
+Reprezentacja graficzna mapy pomieszczenia
+Przy wy³¹czaniu aplikacji wysy³anie, ¿e urz¹dzenie zakoñczy³o œledzenie
+Sprawdzanie na aplikacji czy bluetooth jest w³¹czone
