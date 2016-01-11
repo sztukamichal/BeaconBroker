@@ -1,0 +1,67 @@
+<div class = "well" style="color:white">
+	<table>
+	     <thead>
+		     <tr>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Beacon ID</th>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Kolor</th>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Pozycja x</th>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Pozycja y</th>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Pozycja z</th>
+		         <th style="text-align:center; padding: 0px 10px 0px 10px">Opis</th>
+		     </tr>
+	     </thead>
+	     <tr ng-repeat="beacon in beaconsConfigurations track by $index">
+	         <td style="text-align:center; padding: 0px 10px 0px 10px">
+	             {{beacon.address}}
+	         </td>
+	         <td style="text-align:center; padding: 3px 10px 0px 10px; background-color: {{beacon.color}};">
+	         	<input style="color:black; opacity:0"colorpicker ng-model="beacon.color" type="text">
+	         </td>
+	         <td style="text-align:center; padding: 0px 10px 0px 10px">
+	             <input type="number" ng-model="beacon.pos_x" step="1" placeholder="pozycja x" class="form-control">
+	         </td>
+	         <td style="text-align:center; padding: 3px 10px 0px 10px">
+	             <input type="number" ng-model="beacon.pos_y" step="1" placeholder="pozycja y" class="form-control">
+	         </td>
+	         <td style="text-align:center; padding: 3px 10px 0px 10px">
+	             <input type="number" ng-model="beacon.pos_z" step="1" placeholder="pozycja z" class="form-control">
+	         </td>
+	         <td style="text-align:center; padding: 3px 10px 0px 10px">
+	             <input type="text" ng-model="beacon.description" placeholder="Opis" class="form-control">
+	         </td>
+	         <td style="text-align:center; padding: 3px 10px 0px 10px">
+	             <a href ng-click="beaconsConfigurations.splice(index,1)" class="glyphicon glyphicon-remove"></a>
+	         </td>
+	     </tr>
+	     <tr ng-show="getAvailableBeacons().length > 0">
+	         <td>
+	             <md-select placeholder="Wybierz beacon" ng-model="beacon" style="min-width: 200px;">
+	                 <md-option ng-value="beacon" ng-repeat="beacon in getAvailableBeacons(device,getDeviceConfigurationIndex(device.deviceId))">{{beacon.name}}</md-option>
+	             </md-select>
+	         </td>
+	         <td style="padding: 3px 10px 0px 10px"><input style="color:black" colorpicker ng-model="newConfiguration.color" type="text"></td>
+	         <td style="padding: 0px 10px 0px 10px">
+	             <input type="number" ng-model="newConfiguration.pos_x" step="1" placeholder="pozycja x" class="form-control">
+	         </td>
+	         <td style="padding: 3px 10px 0px 10px">
+	             <input type="number" ng-model="newConfiguration.pos_y" step="1" placeholder="pozycja y" class="form-control">
+	         </td>
+	         <td style="padding: 3px 10px 0px 10px">
+	             <input type="number" ng-model="newConfiguration.pos_z" step="1" placeholder="pozycja z" class="form-control">
+	         </td>
+	         <td style="padding: 3px 10px 0px 10px">
+	             <input type="text" ng-model="newConfiguration.description" placeholder="Opis" class="form-control">
+	         </td>
+	     </tr>
+	 </table>
+	 <div class="text-center">
+	     <md-button ng-click="addNewConfiguration(newConfiguration)" class="md-primary btn-block md-raised">
+	         <md-icon md-svg-src="icons/add121.svg"></md-icon>
+	         Dodaj konfiguracje beacon'a
+	     </md-button>
+	 </div>
+	 <md-button ng-click="saveConfiguration()" class="md-raised btn-block">
+         <md-icon md-svg-src="icons/checkmark18.svg"></md-icon>
+         Aktualizuj
+     </md-button>
+</div>
