@@ -1,50 +1,129 @@
 
 <md-menu>
-      <md-button aria-label="Open phone interactions menu" class="md-fab md-fabsmall md-primary" ng-click="openMenu($mdOpenMenu, $event)">
+    <md-button aria-label="Open phone interactions menu" class="md-fab md-fabsmall md-primary" ng-click="openMenu($mdOpenMenu, $event)">
         <md-icon md-svg-src="icons/button8.svg"></md-icon>
-      </md-button>
-      <md-menu-content width="4">
+        <md-tooltip md-direction="top">
+            Opcje
+        </md-tooltip>
+    </md-button>
+    <md-menu-content width="4">
         <md-menu-item>
-          <md-button ng-click='csv.generate($event, "pomiary.csv")'>
-            <md-icon md-svg-src="icons/arrow73.svg" md-menu-align-target></md-icon>
-            Eksportuj do csv
-          </md-button>
+            <md-button ng-click='csv.generate($event, "pomiary.csv")'>
+                <md-icon md-svg-src="icons/arrow73.svg" md-menu-align-target></md-icon>
+                Eksportuj zaznaczone dane do csv
+            </md-button>
         </md-menu-item>
         <md-menu-item>
-          <md-button ng-click="tableParams.sorting({})">
-            <md-icon md-svg-src="icons/alphabetical2.svg"></md-icon>
-            Wyczyść sortowanie
-          </md-button>
+            <md-button ng-click="tableParams.sorting({})">
+                <md-icon md-svg-src="icons/alphabetical2.svg"></md-icon>
+                Wyczyść sortowanie
+            </md-button>
         </md-menu-item>
         <md-menu-item>
-          <md-button ng-click="tableParams.filter({})">
-            <md-icon md-svg-src="icons/funnel4.svg"></md-icon>
-            Wyczyść filtrowanie
-          </md-button>
+            <md-button ng-click="tableParams.filter({})">
+                <md-icon md-svg-src="icons/funnel4.svg"></md-icon>
+                Wyczyść filtrowanie
+            </md-button>
         </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-    
+    </md-menu-content>
+</md-menu>
+<md-fab-trigger class="align-with-text">
+    <md-button aria-label="menu" class="md-fab md-fabsmall md-primary" ng-click="showDateRange = !showDateRange">
+        <md-icon md-svg-src="icons/clock96.svg"></md-icon>
+        <md-tooltip md-direction="top">
+            Wczytaj dane z przedziału czasowego
+        </md-tooltip>
+    </md-button>
+</md-fab-trigger>
+<md-fab-trigger class="align-with-text">
+    <md-button aria-label="menu" class="md-fab md-fabsmall md-primary" ng-click="getAllData()">
+        <md-icon md-svg-src="icons/internet43.svg"></md-icon>
+        <md-tooltip md-direction="top">
+            Wczytaj wszystkie dane
+        </md-tooltip>
+    </md-button>
+</md-fab-trigger>
+<div class="well" ng-show="showDateRange">
+    <div class="row">
+        <h4 class="text-center" style="color:white" > Wczytaj pomiary wykonane w czasie :</h4>
+    </div>
+    <div class="row">
+        <div class="col-lg-1">
+            <br>
+            <br>
+            <h4 style="color:white">Od :</h4>
+        </div>
+        <div class="col-lg-3">
+            <br>
+            <br>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="myDateFrom" is-open="isFromOpened" ng-required="true" close-text="Zamknij" />
+                   <span class="input-group-btn">
+                     <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                   </span>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <uib-timepicker ng-model="myTimeFrom" show-meridian="false"></uib-timepicker>
+        </div>
+        <div class="col-lg-1">
+            <br>
+            <br>
+            <h4 style="color:white">Do :</h4>
+        </div>
+        <div class="col-lg-3">
+            <br>
+            <br>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="myDateTo" is-open="isToOpened" ng-required="true" close-text="Zamknij" />
+                   <span class="input-group-btn">
+                     <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                   </span>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <uib-timepicker ng-model="myTimeTo" show-meridian="false"></uib-timepicker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <md-button class="md-primary md-raised btn-block" ng-click="getDataForDateRange()"> Wczytaj dane </md-button>
+        </div>
+    </div>
+</div>
 <div class="well" style="color:white">
- 	<md-tabs md-selected="selectedIndex"  md-dynamic-height>
-		<md-tab label="Tabela" style="height: auto; max-height: 150%; overflow: auto;">	
-		  <md-progress-linear ng-hide="done" md-mode="indeterminate"></md-progress-linear>
-		    <table ng-table="tableParams" class="table table-bordered ng-table-responsive "  show-filter="true" export-csv="csv">
-		        <tr ng-repeat="measurement in $data">
-		            <td class="text-center" title="'ID beacon\'a'" sortable="'beaconId'" filter="{ 'beaconId': 'text' }">{{measurement.beaconId}}</td>
-		            <td class="text-center" title="'Moc rozgłaszania'" sortable="'txPower'" filter="{ 'txPower': 'select' }" filter-data="getDatasource">{{measurement.txPower}}</td>
-		            <td class="text-center" title="'RSSI'" sortable="'rssi'"  filter="{ 'rssi': 'text' }">{{measurement.rssi}}</td>
-		            <td class="text-center" title="'Dystans'" sortable="'distance'"  filter="{ 'distance': 'text' }">{{measurement.distance}}</td>
-		            <td class="text-center" title="'Czas'" sortable="'time'"  filter="{ 'text': 'text' }">{{getDate(measurement.time)}}</td>
-		            <td class="text-center" title="'ID urządzenia'" sortable="'deviceId'"  filter="{ 'deviceId': 'text' }">{{measurement.deviceId}}</td>
-		        </tr>
-		    </table>
-		</md-tab>
-		<md-tab label="Wykres">	
-			<canvas  ng-if="selectedIndex == 1" id="line" class="chart chart-line" style="height: auto; max-height: 100%; " chart-data="data"
-			  chart-labels="labels" chart-legend="true" chart-series="series">
-			</canvas> 
-		</md-tab>
-	</md-tabs>
+    <md-tabs md-selected="selectedIndex"  md-dynamic-height>
+        <md-tab label="Tabela" style="height: auto; max-height: 150%; overflow: auto;">
+            <md-progress-linear ng-hide="done" md-mode="indeterminate"></md-progress-linear>
+            <table ng-table="tableParams" class="table table-bordered ng-table-responsive "  show-filter="true" >
+                <tr ng-repeat="measurement in $data">
+                    <td class="text-center" title="'ID beacon\'a'" sortable="'beaconId'" filter="{ 'beaconId': 'text' }">{{measurement.beaconId}}</td>
+                    <td class="text-center" title="'Moc rozgłaszania'" sortable="'txPower'" filter="{ 'txPower': 'select' }" filter-data="getTxPowersToSelect()">{{measurement.txPower}}</td>
+                    <td class="text-center" title="'RSSI'" sortable="'rssi'"  filter="{ 'rssi': 'text' }">{{measurement.rssi}}</td>
+                    <td class="text-center" title="'Dystans'" sortable="'distance'"  filter="{ 'distance': 'select' }" filter-data="getDistancesToSelect()">{{measurement.distance}}</td>
+                    <td class="text-center" title="'Czas'" sortable="'time'"  filter="{ 'text': 'text' }">{{measurement.time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                    <td class="text-center" title="'ID urządzenia'" sortable="'deviceId'"  filter="{ 'deviceId': 'text' }">{{measurement.deviceId}}</td>
+                    <td class="text-center" title="'Poziom baterii'" sortable="'batteryLevel'">{{measurement.batteryLevel}}</td>
+                </tr>
+            </table>
+            <h5>Zaznaczonych danych : {{data.length}}</h5>
+        </md-tab>
+        <md-tab ng-click="getStatisticData()" label="Statystyka">
+            <table ng-table="statisticTableParams" class="table table-bordered ng-table-responsive " show-filter="true"  export-csv="csv" >
+                <tr ng-repeat="statistic in $data">
+                    <td class="text-center" title="'Liczba próbek'" >{{statistic.counter}}</td>
+                    <td class="text-center" title="'Moc rozgłaszania'" >{{statistic.txPower}}</td>
+                    <td class="text-center" title="'Średnia wart. RSSI'" sortable="'avgRssi'">{{statistic.avgRssi}}</td>
+                    <td class="text-center" title="'Odchylenie standardowe'" sortable="'stdDev'">{{statistic.stdDev}}</td>
+                    <td class="text-center" title="'Dystans'" sortable="'distance'"  filter="{ 'distance': 'select' }" filter-data="getDistancesToSelect()">{{statistic.distance}}</td>
+                </tr>
+            </table>
+        </md-tab>
+        <md-tab ng-click="getStatisticData()" label="Wykres">
+            <canvas  ng-if="selectedIndex == 2" id="line" class="chart chart-line" style="height: auto; max-height: 100%; " chart-data="chartData"
+                     chart-labels="chartLabels" chart-series="chartSeries">
+            </canvas>
+        </md-tab>
+    </md-tabs>
 </div>
 

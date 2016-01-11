@@ -11,11 +11,20 @@ public class Device {
     private List<BeaconInRange> beaconsInRangeList;
     private String deviceId;
     private BeaconInRange lastUpdated;
+    private int batteryLevel;
 
     public Device() {
         beaconsInRangeList = new ArrayList<>();
         deviceId = "unknown";
         lastUpdated = new BeaconInRange();
+    }
+
+    public int getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public void setBatteryLevel(int batteryLevel) {
+        this.batteryLevel = batteryLevel;
     }
 
     public BeaconInRange getLastUpdated() {
@@ -55,11 +64,9 @@ public class Device {
                 text += i + ". ";
                 text += dev.toString();
                 text += "\n";
-            } 
-            text += "lastUpdated : " + lastUpdated.toString();
+            }
             return text;
         }
     }
 }
-
 

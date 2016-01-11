@@ -1,10 +1,21 @@
+#main{
+    display:block;
+    width:100%;
+    height:1000px;
+    padding: 50px 50px 50px 50px;
+} 
+
+html, body {
+  height: 100%;
+}
 body {
-    background: url(http://s13.postimg.org/6ytyxn65z/imageedit_1_5539694555.jpg) no-repeat center center fixed;
-    /*background: url(/icons/background.jpg) no-repeat center center fixed;*/
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+}
+#container {
+  background: url(http://i.stack.imgur.com/pMAiU.jpg);
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;   
+    overflow: scroll;
 }
 
 .opacity {
@@ -43,7 +54,7 @@ body {
 
     border-radius:10px;
     background: rgb(43, 43, 34); /* The Fallback */
-    background: rgba(43, 43, 34, 0.6);
+    background: rgba(43, 43, 34, 0.9);
 
 }
 
@@ -51,7 +62,7 @@ body {
 
     border-radius:10px;
     background: rgb(245, 245, 240); /* The Fallback */
-    background: rgba(245, 245, 240, 0.6);
+    background: rgba(245, 245, 240, 0.9);
 
 }
 

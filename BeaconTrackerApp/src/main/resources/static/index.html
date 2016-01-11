@@ -8,65 +8,77 @@
     <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="libraries/ng-table/dist/ng-table.css"/>
     <link rel="stylesheet" href="libraries/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="libraries/angular-bootstrap-colorpicker-master/css/colorpicker.css">
 </head>
 <body ng-app="BeaconTracker" ng-cloak >
-<md-content>
-    <br>
-    <md-toolbar>
-        <h3 class="text-center">
-            <span>Beacon Tracking Application</span>
-        </h3>
-    </md-toolbar>
-</md-content>
 
-<md-fab-toolbar md-open="false">
-    <md-fab-trigger class="align-with-text">
-        <md-button aria-label="menu" class="md-fab md-primary">
-            <md-icon md-svg-src="icons/menu48.svg"></md-icon>
-        </md-button>
-    </md-fab-trigger>
-    <md-toolbar>
-        <md-fab-actions class="md-toolbar-tools">
-            <md-button aria-label="menu" class="md-fab md-primary">
-                <md-icon md-svg-src="icons/menu48.svg"></md-icon>
-            </md-button>
-            <md-button ng-href="#localization">
+<div id="container">
+	<md-content>
+	    <br>
+	    <md-toolbar>
+	        <h3 class="text-center">
+	            <span>Beacon Tracking Application</span>
+	        </h3>
+	    </md-toolbar>
+	</md-content>
+	
+	<md-fab-toolbar md-open="false">
+	    <md-fab-trigger class="align-with-text">
+	        <md-button aria-label="menu" class="md-fab md-primary">
+	            <md-icon md-svg-src="icons/menu48.svg"></md-icon>
+	        </md-button>
+	    </md-fab-trigger>
+	    <md-toolbar>
+	        <md-fab-actions class="md-toolbar-tools">
+	            <md-button aria-label="menu" class="md-fab md-primary">
+	                <md-icon md-svg-src="icons/menu48.svg"></md-icon>
+	            </md-button>
+	        <md-button ng-href="#localization">
                 <md-icon md-svg-src="icons/placeholder4.svg"></md-icon>
                 Lokalizacja
             </md-button>
-            <md-button ng-href="#devices">
-                <md-icon md-svg-src="icons/bluetooth22.svg"></md-icon>
-                Urządzenia
-            </md-button>
-            <md-button ng-href="#configuration">
-                <md-icon md-svg-src="icons/setting4.svg"></md-icon>
-                Konfiguracja
-            </md-button>
-            <md-button ng-href="#measurements">
-                <md-icon md-svg-src="icons/speedometer26.svg"></md-icon>
-                Pomiary
-            </md-button>
-        </md-fab-actions>
-    </md-toolbar>
-</md-fab-toolbar>
-<div ng-view="" class="container-fluid col-lg-10 col-lg-offset-1">
-
+	            <md-button ng-href="#devices">
+	                <md-icon md-svg-src="icons/bluetooth22.svg"></md-icon>
+	                Urządzenia
+	            </md-button>
+	            <md-button ng-href="#configuration">
+	                <md-icon md-svg-src="icons/setting4.svg"></md-icon>
+	                Konfiguracja
+	            </md-button>
+	            <md-button ng-href="#measurements">
+	                <md-icon md-svg-src="icons/speedometer26.svg"></md-icon>
+	                Pomiary
+	            </md-button>
+	        </md-fab-actions>
+	    </md-toolbar>
+	</md-fab-toolbar>
+	<div ng-view="" class="col-lg-10 col-lg-offset-1">
+	
+	</div>
 </div>
-
 </body>
 <script src="libraries/angular/angular.js"></script>
 <script src="libraries/angular-animate/angular-animate.js"></script>
 <script src="libraries/angular-aria/angular-aria.js"></script>
 <script src="libraries/angular-material/angular-material.js"></script>
 <script src="libraries/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="libraries/ui-bootstrap.min.js"></script>
 <script src="libraries/angular-route/angular-route.js"></script>
 <script src="libraries/angular-material-icons/angular-material-icons.js"></script>
 <script src="libraries/ng-table/dist/ng-table.js"></script>
 <script src="libraries/angular-chart.js/node_modules/chart.js/Chart.js"></script>
 <script src="libraries/angular-chart.js/dist/angular-chart.js"></script>
+<script src="libraries/angular-bootstrap-colorpicker-master/js/bootstrap-colorpicker-module.js"></script>
+<script src="js/moment.js"></script>
 <script src="js/script.js"></script>
 <script src="js/ng-table-export.src.js"></script>
+<script src="js/sylvester.js"></script>
+<script src="js/LLS_Implementation.js"></script>
+<script src="js/jquery-2.2.0.js"></script>
 <script src="app.js"></script>
 <script src="js/devicesController.js"></script>
 <script src="js/measurementsCtrl.js"></script>
+<script src="js/configurationCtrl.js"></script>
+<script src="js/localizationCtrl.js"></script>
+<script src="js/trilateration.js"></script>
 </html>

@@ -3,7 +3,7 @@
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 
-    <div ng-show="isServerResponding === true && errorWithConnection === false && errorMessage === ''" class="well">
+    <div ng-show="false" class="well">
         <h3 class="text-center" style="color: white">Połączone urządzenia</h3>
     </div>
     <br>
@@ -25,16 +25,20 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Address</th>
-                                    <th>Tx Power</th>
-                                    <th>RSSI</th>
+                                    <th style="text-align:center;">Beacon ID</th>
+                                    <th style="text-align:center;">Moc rozgłaszania</th>
+                                    <th style="text-align:center;">RSSI</th>
+                                    <th style="text-align:center;">Ostatni pomiar</th>
+                                    <th style="text-align:center;">Przybliżona odległość</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="beacon in device.beaconsInRangeList">
-                                    <td>{{beacon.address}}</td>
-                                    <td>{{beacon.txPower}}</td>
-                                    <td>{{beacon.rssi}}</td>
+                                    <td style="text-align:center;">{{beacon.address}}</td>
+                                    <td style="text-align:center;">{{beacon.txPower}}</td>
+                                    <td style="text-align:center;">{{beacon.rssi}}</td>
+                                    <td style="text-align:center;">{{getDate(beacon.lastActivity)}}</td>
+                                    <td style="text-align:center;">{{getDistance(beacon) | number:2}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -108,5 +112,7 @@
                 </div>
             </div>
         </div>
+        <p><h2 style="color:white">{{d}}</h2>
+        <p><h2 style="color:white">{{e}}</h2>
     </div>
 </div>

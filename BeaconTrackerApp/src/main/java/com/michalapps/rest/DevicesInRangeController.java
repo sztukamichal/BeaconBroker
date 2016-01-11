@@ -3,8 +3,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.michalapps.model.BeaconInRange;
-import com.michalapps.model.DeviceLog;
-import com.michalapps.model.DeviceLogDao;
 import com.michalapps.model.Device;
 import com.michalapps.model.MeasurmentDao;
 import com.michalapps.model.TrackedDevice;
@@ -51,17 +49,6 @@ public class DevicesInRangeController {
     	return trackedDevices;
     }
     
-  /*  @RequestMapping(value = "/changeDistaceToTrackedDevice", method = RequestMethod.POST)
-    public String changeDistanceToTrackedDevice(@RequestBody TrackedDevice newDistance) {
-    	TrackedDevice logDevice= findTrackedDevice(newDistance.getDeviceId());
-    	if(logDevice == null) {
-    		return "{\"status\":\"device is not tracked\"}";
-        } else {
-        	logDevice.setDistance(newDistance.getDistance());
-    		return "{\"status\":\"changed\"}";
-        }
-    }*/
-    
     @RequestMapping(value = "/postDeviceInRange", method = RequestMethod.POST)
     public String postDeviceInRange(@RequestBody Device device) {
         Device found = findDeviceInRange(device.getDeviceId());
@@ -76,7 +63,7 @@ public class DevicesInRangeController {
         	Measurement measurment;
         	BeaconInRange lastUpdated = device.getLastUpdated();
         	float distance = dev.getDistanceToBeacon(lastUpdated.getAddress());
-    		measurment = new Measurement(device.getDeviceId(), lastUpdated.getAddress(), lastUpdated.getRssi(), lastUpdated.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance);
+    		measurment = new Measurement(device.getDeviceId(), lastUpdated.getAddress(), lastUpdated.getRssi(), lastUpdated.getTxPower(), new Timestamp(new java.util.Date().getTime()),distance, device.getBatteryLevel());
     		measurmentDao.save(measurment);	
         }
         
@@ -87,23 +74,6 @@ public class DevicesInRangeController {
     public List<Device> getDevicesInRange() {
         return devicesInRange;
     }
-    
-    /*@RequestMapping(value = "/log-devices", method = RequestMethod.GET)
-    public String logDevices() {
-    	if(devicesInRange.size() == 0) {
-    		return "Failed";
-    	}
-    	int distance = 0;
-    	DeviceLog log ;
-    	for(BeaconsInRange device : devicesInRange.get(0).getDevicesInRangeList()) {
-    		log = new DeviceLog(device.getAddress(),0,device.getRssi(), device.getTxPower());		
-    		log.setId(11);
-    		System.out.println("/n/n/n/" + log + "/n/n/n" +log.getId());
-    		deviceLogDao.save(log);
-    	 
-    	}
-    	return "success";
-    }*/
 
     @RequestMapping(value = "deviceOutOfRange", method = RequestMethod.POST)
     public String deviceOutOfRange(@RequestBody Device device) {

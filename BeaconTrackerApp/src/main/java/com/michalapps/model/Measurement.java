@@ -22,6 +22,7 @@ public class Measurement {
     
 	private String deviceId;
 	private String beaconId;
+	private int batteryLevel;
 	
 	private int rssi;
     private int txPower;
@@ -37,13 +38,25 @@ public class Measurement {
     
 
 	public Measurement(String deviceId, String beaconId, int rssi, int txPower,
-			Timestamp time, float distance) {
+			Timestamp time, float distance, int batteryLevel) {
 		this.deviceId = deviceId;
 		this.beaconId = beaconId;
 		this.rssi = rssi;
 		this.txPower = txPower;
 		this.time = time;
 		this.distance = distance;
+		this.batteryLevel = batteryLevel;
+	}
+
+
+	public int getBatteryLevel() {
+		return batteryLevel;
+	}
+
+
+
+	public void setBatteryLevel(int batteryLevel) {
+		this.batteryLevel = batteryLevel;
 	}
 
 
